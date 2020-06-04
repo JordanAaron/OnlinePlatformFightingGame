@@ -1,36 +1,28 @@
 package GUI;
 
-import Main.Game;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainMenu extends JPanel {
-    private JFrame frame;
     private JButton playBtn;
+    private CardLayout cardLayout = Frame.cardLayout;
+    public JPanel mainPanel;
 
-    public MainMenu(JFrame frame){
-        this.frame = frame;
+    public MainMenu(){
+        mainPanel = Frame.cardPanel;
         setLayout(new BorderLayout());
-        components();
+        setBorder(BorderFactory.createLineBorder(Color.blue));
+
+        playBtn = new JButton("Play");
+        add(playBtn);
+
         buttonListeners();
     }
 
-    private void components(){
-        playBtn = new JButton("Play");
-        add(playBtn);
-    }
-
     private void buttonListeners(){
-        playBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setContentPane(new Game());
-                frame.invalidate();
-                frame.validate();
-            }
+        playBtn.addActionListener(e -> {
+            cardLayout.show(mainPanel, "TestingMap");
+            //Testing map should be started here
         });
     }
 }
