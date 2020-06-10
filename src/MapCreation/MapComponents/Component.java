@@ -3,7 +3,7 @@ package MapCreation.MapComponents;
 import java.awt.*;
 
 public abstract class Component {
-    public int xPos, yPos, width, height;
+    public int xPos, yPos, width, height, screenWidth, screenHeight;
     Color c;
 
     public Component(int x, int y, int width, int height, Color color){

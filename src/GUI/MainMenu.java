@@ -6,17 +6,18 @@ import java.awt.*;
 public class MainMenu extends JPanel {
     private JButton playBtn;
     private CardLayout cardLayout = Frame.cardLayout;
-    public JPanel mainPanel;
+    private JPanel mainPanel = Frame.cardPanel;
 
     public MainMenu(){
-        mainPanel = Frame.cardPanel;
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.blue));
+        components();
+        buttonListeners();
+    }
 
+    private void components(){
         playBtn = new JButton("Play");
         add(playBtn);
-
-        buttonListeners();
     }
 
     private void buttonListeners(){

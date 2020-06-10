@@ -16,7 +16,7 @@ public class Frame extends JFrame {
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
         menuPanel = new MainMenu();
-        testingMap = new TestingMap();
+        testingMap = new TestingMap(this);
 
         cardPanel.add(menuPanel,"menu");
         cardPanel.add(testingMap,"TestingMap");
