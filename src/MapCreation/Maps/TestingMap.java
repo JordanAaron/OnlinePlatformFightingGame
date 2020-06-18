@@ -1,6 +1,7 @@
 package MapCreation.Maps;
 
 import GUI.Frame;
+import InputHandling.KeyboardHandler;
 import MapCreation.MapComponents.Component;
 import MapCreation.MapComponents.Platform;
 import Players.GenericPlayer;
@@ -11,7 +12,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class TestingMap extends JPanel implements Runnable, Map {
-    Frame frame;
+    private Frame frame;
+
+    private Thread thread;
+    private Boolean running;
 
     private static Platform floor = new Platform(0,100 - 5,100,5,Color.gray);
     private static Platform leftPlatform = new Platform(20,60,15,5,Color.white);
@@ -25,6 +29,8 @@ public class TestingMap extends JPanel implements Runnable, Map {
     public TestingMap(Frame frame){
         this.frame = frame;
 
+        frame.addKeyListener(new KeyboardHandler());
+
         setBackground(Color.black);
 
         this.components.add(floor);
@@ -33,6 +39,7 @@ public class TestingMap extends JPanel implements Runnable, Map {
 
         this.players.add(genericPlayer);
 
+        //start();
     }
 
     public void paint(Graphics g) {
@@ -48,6 +55,16 @@ public class TestingMap extends JPanel implements Runnable, Map {
             p.updateWidth(this.getWindowWidth());
             p.updateHeight(this.getWindowHeight());
             p.draw(g);
+        }
+    }
+
+    void start() {
+        if (running){
+            return;
+        } else {
+            running = true;
+            thread = new Thread(this);
+            thread.start();
         }
     }
 

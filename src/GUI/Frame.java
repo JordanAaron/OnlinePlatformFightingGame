@@ -1,5 +1,6 @@
 package GUI;
 
+import InputHandling.KeyboardHandler;
 import MapCreation.Maps.TestingMap;
 
 import javax.swing.*;
@@ -26,7 +27,9 @@ public class Frame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
+        setFocusable(true);
         setVisible(true);
+
     }
 
     public static void main(String[] args) {
