@@ -3,9 +3,15 @@ package Players;
 import java.awt.*;
 
 public class GenericPlayer extends Player {
-    public static int playerWidth,playerHeight;
+    private static int playerWidth,playerHeight;
 
     private Color color;
+
+//    public int xPos;
+//    public int yPos;
+
+    public double playerSpeed,xSpeed, ySpeed;
+    private boolean canMove;
 
     public GenericPlayer(int x, int y, Color c) {
         super(x, y);
@@ -13,6 +19,11 @@ public class GenericPlayer extends Player {
 
         playerWidth = 4;
         playerHeight = 7;
+
+        playerSpeed = 0.5;
+        xSpeed = 0;
+
+        canMove = true;
     }
 
     @Override
@@ -38,7 +49,25 @@ public class GenericPlayer extends Player {
 
     @Override
     public void movement() {
+        xPos += xSpeed;
+        yPos -= ySpeed;
+        collisionDetection();
+        outOfBounds();
+        //initiateGravity();
 
+        if(!canMove){
+            if (xSpeed < 0){
+                xSpeed += 0.5;
+                if (xSpeed > 0){
+                    xSpeed = 0;
+                }
+            } else if (xSpeed > 0) {
+                xSpeed -= 0.5;
+                if( xSpeed < 0){
+                    xSpeed = 0;
+                }
+            }
+        }
     }
 
     @Override
@@ -49,5 +78,54 @@ public class GenericPlayer extends Player {
     @Override
     public boolean playerColliding(int x, int y) {
         return false;
+    }
+
+    public void moveLeft(){
+        xSpeed = -1;
+    }
+
+    public void moveRight(){
+        xSpeed = 1;
+    }
+
+    public void startMoving(){
+        canMove = true;
+    }
+
+    public void stopMoving(){
+        canMove = false;
+    }
+
+    public void initiateGravity(){
+        ySpeed -= 1;
+        if (ySpeed < -4){
+            ySpeed = -4;
+        }
+    }
+
+    private void outOfBounds(){
+        if(xPos < 0){
+            xPos = 0;
+        }
+        if (getRightX() > 100){
+            xPos = 100 - playerWidth;
+            //xSpeed = 0;
+        }
+    }
+
+    public int getLeftX(){
+        return xPos;
+    }
+
+    public int getRightX(){
+        return xPos + playerWidth;
+    }
+
+    public int getTopY(){
+        return yPos;
+    }
+
+    public int getBottomY(){
+        return yPos + playerHeight;
     }
 }

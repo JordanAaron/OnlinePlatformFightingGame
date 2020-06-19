@@ -1,6 +1,7 @@
 package MapCreation.Maps;
 
 import GUI.Frame;
+import GUI.MainMenu;
 import InputHandling.KeyboardHandler;
 import MapCreation.MapComponents.Component;
 import MapCreation.MapComponents.Platform;
@@ -14,14 +15,14 @@ import java.util.ArrayList;
 public class TestingMap extends JPanel implements Runnable, Map {
     private Frame frame;
 
-    private Thread thread;
-    private Boolean running;
+    private static Thread thread;
+    private static Boolean running;
 
     private static Platform floor = new Platform(0,100 - 5,100,5,Color.gray);
     private static Platform leftPlatform = new Platform(20,60,15,5,Color.white);
     private static Platform rightPlatform = new Platform(80 - 15,60,15,5,Color.white);
 
-    private static GenericPlayer genericPlayer = new GenericPlayer(72, rightPlatform.yPos-7,Color.pink);
+    public static GenericPlayer genericPlayer = new GenericPlayer(72, rightPlatform.yPos-7,Color.pink);
 
     private  ArrayList<MapCreation.MapComponents.Component> components = new ArrayList<>();
     private ArrayList<Players.Player> players = new ArrayList<>();
@@ -39,6 +40,9 @@ public class TestingMap extends JPanel implements Runnable, Map {
 
         this.players.add(genericPlayer);
 
+        MainMenu.getMapReference(this, "TestingMap");
+
+        running = false;
         //start();
     }
 
@@ -58,7 +62,7 @@ public class TestingMap extends JPanel implements Runnable, Map {
         }
     }
 
-    void start() {
+    public void start() {
         if (running){
             return;
         } else {
@@ -80,6 +84,17 @@ public class TestingMap extends JPanel implements Runnable, Map {
 
     @Override
     public void run() {
+        System.out.println("running...");
+        while (running) {
 
+            genericPlayer.movement();
+            repaint();
+
+            try {
+                thread.sleep(28);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
