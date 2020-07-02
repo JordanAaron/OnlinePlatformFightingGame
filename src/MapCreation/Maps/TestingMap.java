@@ -15,10 +15,9 @@ import java.util.ArrayList;
 public class TestingMap extends JPanel implements Runnable, Map {
     private Frame frame;
 
-    private static Thread thread;
     private static Boolean running;
 
-    private static Platform floor = new Platform(0,100 - 5,100,5,Color.gray);
+    public static Platform floor = new Platform(0,100 - 5,100,5,Color.gray);
     private static Platform leftPlatform = new Platform(20,60,15,5,Color.white);
     private static Platform rightPlatform = new Platform(80 - 15,60,15,5,Color.white);
 
@@ -43,7 +42,6 @@ public class TestingMap extends JPanel implements Runnable, Map {
         MainMenu.getMapReference(this, "TestingMap");
 
         running = false;
-        //start();
     }
 
     public void paint(Graphics g) {
@@ -63,11 +61,9 @@ public class TestingMap extends JPanel implements Runnable, Map {
     }
 
     public void start() {
-        if (running){
-            return;
-        } else {
+        if (!running) {
             running = true;
-            thread = new Thread(this);
+            Thread thread = new Thread(this);
             thread.start();
         }
     }
@@ -91,7 +87,7 @@ public class TestingMap extends JPanel implements Runnable, Map {
             repaint();
 
             try {
-                thread.sleep(28);
+                Thread.sleep(28);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

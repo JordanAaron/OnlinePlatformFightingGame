@@ -30,6 +30,11 @@ public class Platform extends Component {
 
     @Override
     public boolean MapCollisionDetection(int leftX, int rightX, int topY, int bottomY) {
+        if (rightX > this.xPos && leftX < (this.xPos + this.width)){
+            if (bottomY > this.yPos && topY < (this.yPos + this.height)){
+                return true;
+            }
+        }
         return false;
     }
 }

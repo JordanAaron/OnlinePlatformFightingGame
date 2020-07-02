@@ -1,5 +1,7 @@
 package Players;
 
+import MapCreation.Maps.TestingMap;
+
 import java.awt.*;
 
 public class GenericPlayer extends Player {
@@ -53,7 +55,7 @@ public class GenericPlayer extends Player {
         yPos -= ySpeed;
         collisionDetection();
         outOfBounds();
-        //initiateGravity();
+        initiateGravity();
 
         if(!canMove){
             if (xSpeed < 0){
@@ -72,6 +74,10 @@ public class GenericPlayer extends Player {
 
     @Override
     public void collisionDetection() {
+        if (TestingMap.floor.MapCollisionDetection(getLeftX(),getRightX(),getTopY(),getBottomY())){
+            yPos = (TestingMap.floor.yPos - playerHeight);
+            ySpeed = 0;
+        }
 
     }
 

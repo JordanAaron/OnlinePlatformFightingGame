@@ -18,12 +18,14 @@ public class KeyboardHandler implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_LEFT){
             TestingMap.genericPlayer.startMoving();
             left = true;
+            right = false;
             TestingMap.genericPlayer.moveLeft();
 
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT){
             TestingMap.genericPlayer.startMoving();
             right = true;
+            left = false;
             TestingMap.genericPlayer.moveRight();
 
         }
