@@ -12,7 +12,7 @@ public class GenericPlayer extends Player {
 //    public int xPos;
 //    public int yPos;
 
-    public double playerSpeed,xSpeed, ySpeed;
+    public static double playerSpeed,xSpeed, ySpeed, jumpCounter;
     private boolean canMove;
 
     public GenericPlayer(int x, int y, Color c) {
@@ -24,6 +24,8 @@ public class GenericPlayer extends Player {
 
         playerSpeed = 0.5;
         xSpeed = 0;
+
+        jumpCounter = 0;
 
         canMove = true;
     }
@@ -76,9 +78,9 @@ public class GenericPlayer extends Player {
     public void collisionDetection() {
         if (TestingMap.floor.MapCollisionDetection(getLeftX(),getRightX(),getTopY(),getBottomY())){
             yPos = (TestingMap.floor.yPos - playerHeight);
+            jumpCounter = 0;
             ySpeed = 0;
         }
-
     }
 
     @Override
@@ -92,6 +94,13 @@ public class GenericPlayer extends Player {
 
     public void moveRight(){
         xSpeed = 1;
+    }
+
+    public static void jump(){
+        if(jumpCounter < 2){
+            ySpeed = 6;
+            jumpCounter++;
+        }
     }
 
     public void startMoving(){
