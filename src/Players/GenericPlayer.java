@@ -76,11 +76,53 @@ public class GenericPlayer extends Player {
 
     @Override
     public void collisionDetection() {
-        if (TestingMap.floor.MapCollisionDetection(getLeftX(),getRightX(),getTopY(),getBottomY())){
+
+        int overlapFromLeft = Math.abs(playerRight() - TestingMap.rightPlatform.platformLeft());
+        int overlapFromRight = Math.abs(playerLeft() - TestingMap.rightPlatform.platformRight());
+        int overlapFromTop = Math.abs(playerBottom() - TestingMap.rightPlatform.platformTop());
+        int overlapFromBottom = Math.abs(playerTop() - TestingMap.rightPlatform.platformBottom());
+
+        //System.out.println(overlapFromLeft + ", " + overlapFromTop);
+
+        System.out.println(playerBottom() + ", " + TestingMap.rightPlatform.platformTop());
+
+        if (TestingMap.floor.MapCollisionDetection(playerLeft(), playerRight(), playerTop(), playerBottom())){
             yPos = (TestingMap.floor.yPos - playerHeight);
             jumpCounter = 0;
-            ySpeed = 0;
         }
+
+
+        if (playerTop() < TestingMap.rightPlatform.platformBottom()){
+            if (playerRight() > TestingMap.rightPlatform.platformLeft() && playerLeft() < TestingMap.rightPlatform.platformRight()){
+                //System.out.println("below");
+                if (TestingMap.rightPlatform.MapCollisionDetection(playerLeft(), playerRight(), playerTop(), playerBottom())){
+                    yPos = (TestingMap.rightPlatform.platformBottom());
+                    ySpeed = 0;
+                    //System.out.println("collide");
+                }
+            }
+
+        }
+        if (playerBottom() < TestingMap.rightPlatform.platformTop()){
+            if (playerRight() > TestingMap.rightPlatform.platformLeft() && playerLeft() < TestingMap.rightPlatform.platformRight()){
+                //System.out.println("above");
+                if (TestingMap.rightPlatform.MapCollisionDetection(playerLeft(), playerRight(), playerTop(), playerBottom())){
+                    yPos = (TestingMap.rightPlatform.platformTop() - playerHeight);
+                    jumpCounter = 0;
+                    //System.out.println("collide");
+                }
+            }
+        }
+
+        if (playerLeft() > TestingMap.rightPlatform.platformRight()-1){
+            if (TestingMap.rightPlatform.MapCollisionDetection(playerLeft(),playerRight(),playerTop(),playerBottom())){
+                xPos = TestingMap.rightPlatform.platformRight();
+            }
+            //System.out.println("to the right");
+        }
+
+
+
     }
 
     @Override
@@ -122,25 +164,25 @@ public class GenericPlayer extends Player {
         if(xPos < 0){
             xPos = 0;
         }
-        if (getRightX() > 100){
+        if (playerRight() > 100){
             xPos = 100 - playerWidth;
             //xSpeed = 0;
         }
     }
 
-    public int getLeftX(){
+    private int playerLeft(){
         return xPos;
     }
 
-    public int getRightX(){
+    private int playerRight(){
         return xPos + playerWidth;
     }
 
-    public int getTopY(){
+    private int playerTop(){
         return yPos;
     }
 
-    public int getBottomY(){
+    private int playerBottom(){
         return yPos + playerHeight;
     }
 }

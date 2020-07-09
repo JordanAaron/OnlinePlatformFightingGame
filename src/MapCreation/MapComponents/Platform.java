@@ -29,12 +29,28 @@ public class Platform extends Component {
     }
 
     @Override
-    public boolean MapCollisionDetection(int leftX, int rightX, int topY, int bottomY) {
-        if (rightX > this.xPos && leftX < (this.xPos + this.width)){
-            if (bottomY > this.yPos && topY < (this.yPos + this.height)){
+    public boolean MapCollisionDetection(int playerLeft, int playerRight, int playerTop, int playerBottom) {
+        if (playerRight > platformLeft() && playerLeft < platformRight()){
+            if (playerBottom > platformTop() && playerTop < platformBottom()){
                 return true;
             }
         }
         return false;
+    }
+
+    public int platformLeft(){
+        return xPos;
+    }
+
+    public int platformRight(){
+        return xPos + width;
+    }
+
+    public int platformTop(){
+        return yPos;
+    }
+
+    public int platformBottom(){
+        return yPos + height;
     }
 }

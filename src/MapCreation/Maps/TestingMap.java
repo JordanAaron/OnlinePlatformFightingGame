@@ -18,12 +18,12 @@ public class TestingMap extends JPanel implements Runnable, Map {
     private static Boolean running;
 
     public static Platform floor = new Platform(0,100 - 5,100,5,Color.gray);
-    private static Platform leftPlatform = new Platform(20,60,15,5,Color.white);
-    private static Platform rightPlatform = new Platform(80 - 15,60,15,5,Color.white);
+    public static Platform leftPlatform = new Platform(20,60,15,5,Color.white);
+    public static Platform rightPlatform = new Platform(80 - 15,70,15,5,Color.white);
 
     public static GenericPlayer genericPlayer = new GenericPlayer(72, rightPlatform.yPos-7,Color.pink);
 
-    private  ArrayList<MapCreation.MapComponents.Component> components = new ArrayList<>();
+    private ArrayList<MapCreation.MapComponents.Component> components = new ArrayList<>();
     private ArrayList<Players.Player> players = new ArrayList<>();
 
     public TestingMap(Frame frame){
